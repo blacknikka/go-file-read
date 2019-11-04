@@ -6,4 +6,4 @@ services:
       - "8080:8080"
     tty: true
     volumes:
-      - ../src:/go/src
+      - ../src:/go/src/github.com/blacknikka/go-file-read/src
