@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+
+	"github.com/blacknikka/go-file-read/src/analyze"
 )
 
 // AnalyzeAllDirectory ファイルを読み込む
@@ -30,9 +32,11 @@ func AnalyzeAllDirectory(dirPath string) {
 			defer fileContent.Close()
 
 			byteArray, err := ioutil.ReadAll(fileContent)
-			fmt.Println(string(byteArray))
+			if err == nil {
+				analyze.Analyze(string(byteArray))
+			}
 
-			return nil
+			return err
 		}
 
 		return nil
