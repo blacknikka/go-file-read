@@ -10,16 +10,16 @@ import (
 )
 
 // AnalyzeAllDirectory ファイルを読み込む
-func AnalyzeAllDirectory(dirPath string) {
+func AnalyzeAllDirectory(dirPath string) (err error) {
 	fmt.Println("Start reading a file.")
 	fmt.Println("Target directory is " + dirPath)
 
 	// ファイルをOpenする
-	err := filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
+	err = filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
-			return err
+			panic("Error detected when a file/dir is opened : " + path)
 		}
+
 		if info.IsDir() == false && filepath.Ext(info.Name()) == ".txt" {
 			fmt.Println("A file is found : " + path)
 
@@ -28,6 +28,7 @@ func AnalyzeAllDirectory(dirPath string) {
 
 			if err != nil {
 				fmt.Println("error")
+				return err
 			}
 			defer fileContent.Close()
 
@@ -44,10 +45,8 @@ func AnalyzeAllDirectory(dirPath string) {
 
 	if err != nil {
 		fmt.Println("error")
-		return
+		return err
 	}
-	// defer f.Close()
 
-	// b, err := ioutil.ReadAll(f)
-	// fmt.Println(string(b))
+	return nil
 }

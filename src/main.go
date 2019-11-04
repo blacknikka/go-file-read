@@ -18,5 +18,10 @@ func main() {
 	}
 
 	// ディレクトリのパスを指定して実行
-	read.AnalyzeAllDirectory(os.Args[1])
+	err := read.AnalyzeAllDirectory(os.Args[1])
+	if err != nil {
+		os.Exit(1)
+	}
+
+	os.Exit(0)
 }
