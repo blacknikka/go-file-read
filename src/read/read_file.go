@@ -2,12 +2,13 @@ package read
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 )
 
-// Read ファイルを読み込む
-func Read(dirPath string) {
+// AnalyzeAllDirectory ファイルを読み込む
+func AnalyzeAllDirectory(dirPath string) {
 	fmt.Println("Start reading a file.")
 	fmt.Println("Target directory is " + dirPath)
 
@@ -17,8 +18,20 @@ func Read(dirPath string) {
 			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
 			return err
 		}
-		if info.IsDir() == false {
+		if info.IsDir() == false && filepath.Ext(info.Name()) == ".txt" {
 			fmt.Println("A file is found : " + path)
+
+			// ファイルをOpenする
+			fileContent, err := os.Open(path)
+
+			if err != nil {
+				fmt.Println("error")
+			}
+			defer fileContent.Close()
+
+			byteArray, err := ioutil.ReadAll(fileContent)
+			fmt.Println(string(byteArray))
+
 			return nil
 		}
 
