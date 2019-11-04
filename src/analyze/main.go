@@ -1,0 +1,4 @@
+package analyze
+
+func main() {
+}
