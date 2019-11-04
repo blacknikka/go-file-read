@@ -18,5 +18,5 @@ func main() {
 	}
 
 	// ディレクトリのパスを指定して実行
-	read.Read(os.Args[1])
+	read.AnalyzeAllDirectory(os.Args[1])
 }
