@@ -8,7 +8,7 @@ import (
 
 // Read ファイルを読み込む
 func Read() {
-	fmt.Println("ファイル読み取り処理を開始します")
+	fmt.Println("Start reading a file.")
 	// ファイルをOpenする
 	f, err := os.Open("test.txt")
 
